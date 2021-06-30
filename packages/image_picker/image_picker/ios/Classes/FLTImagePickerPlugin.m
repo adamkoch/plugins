@@ -154,7 +154,11 @@ typedef NS_ENUM(NSInteger, ImagePickerClassType) { UIImagePickerClassType, PHPic
       (NSString *)kUTTypeMPEG4
     ];
     _imagePickerController.videoQuality = UIImagePickerControllerQualityTypeHigh;
-
+    // Waiting on https://github.com/flutter/plugins/pull/3457 to go through
+    if (@available(iOS 11.0, *)) {
+      // Enable passthrough mode in video-picking mode.
+      _imagePickerController.videoExportPreset = AVAssetExportPresetPassthrough;
+    }
     self.result = result;
     _arguments = call.arguments;
 

@@ -16,7 +16,7 @@ import com.google.android.exoplayer2.Format;
 import com.google.android.exoplayer2.MediaItem;
 import com.google.android.exoplayer2.PlaybackParameters;
 import com.google.android.exoplayer2.Player;
-import com.google.android.exoplayer2.Player.EventListener;
+import com.google.android.exoplayer2.Player.Listener;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.audio.AudioAttributes;
 import com.google.android.exoplayer2.source.MediaSource;
@@ -167,7 +167,7 @@ final class VideoPlayer {
     setAudioAttributes(exoPlayer, options.mixWithOthers);
 
     exoPlayer.addListener(
-        new EventListener() {
+        new Listener() {
           private boolean isBuffering = false;
 
           public void setBuffering(boolean buffering) {

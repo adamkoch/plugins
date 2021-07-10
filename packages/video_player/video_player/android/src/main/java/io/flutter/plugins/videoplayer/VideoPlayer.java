@@ -76,9 +76,15 @@ final class VideoPlayer {
 
     DataSource.Factory dataSourceFactory;
     if (isHTTP(uri)) {
-      dataSourceFactory = new DefaultHttpDataSource.Factory()
+      DefaultHttpDataSource.Factory httpDataSourceFactory =
+          new DefaultHttpDataSource.Factory()
               .setUserAgent("ExoPlayer")
               .setAllowCrossProtocolRedirects(true);
+
+      if (httpHeaders != null && !httpHeaders.isEmpty()) {
+        httpDataSourceFactory.setDefaultRequestProperties(httpHeaders);
+      }
+      dataSourceFactory = httpDataSourceFactory;
     } else {
       dataSourceFactory = new DefaultDataSourceFactory(context, "ExoPlayer");
     }
@@ -148,7 +154,6 @@ final class VideoPlayer {
 
   private void setupVideoPlayer(
       EventChannel eventChannel, TextureRegistry.SurfaceTextureEntry textureEntry) {
-
     eventChannel.setStreamHandler(
         new EventChannel.StreamHandler() {
           @Override
